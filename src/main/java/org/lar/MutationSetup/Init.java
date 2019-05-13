@@ -1,9 +1,10 @@
 package org.lar.MutationSetup;
 
+import org.antlr.v4.runtime.misc.MultiMap;
 import org.apache.commons.io.FileUtils;
 import org.lar.FileUtils.FileBrowser;
 import org.lar.FileUtils.FileCreator;
-import org.lar.FileUtils.MultiMap;
+import org.lar.MutationSetup.Language.LanguageWalker;
 import org.lar.MutationSetup.MutationOperators.Operator;
 
 import java.io.File;
@@ -13,8 +14,9 @@ public class Init {
     public void start(String[] operators, String dirPath, String savePath) {
         for(String operator : operators) {
             Operator mutationOperator = OperatorFactory.getOperator(operator);
+            LanguageWalker walker = LanguageWalkerFactory.getWalker("SV");
             try {
-                FileBrowser.browseDirectory(new File(dirPath), mutationOperator);
+                FileBrowser.browseDirectory(new File(dirPath), mutationOperator, walker);
             } catch (IOException error) {
                 System.out.println("Path not found");
             }
@@ -33,7 +35,7 @@ public class Init {
             for(String mutant : mutantList.get(key)) {
                 cont++;
                 try {
-                    newPath = "/ProjectMutant/" + key + "/Teste" + cont + "/";
+                    newPath = "/ProjectMutant/" + key + "/" + cont + "/";
                     FileUtils.copyDirectory(new File(dirPath), new File(savePath  + newPath));
                     FileCreator.saveFile(FileBrowser.getActualFile(), savePath  + newPath, mutant, "sv");
                 } catch (IOException e) {

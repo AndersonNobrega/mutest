@@ -9,6 +9,7 @@ abstract class OperatorFactory {
         switch (operatorName) {
             case "AOR":
                 mutationOperator = new ArithmeticOperator();
+                break;
         }
         return mutationOperator;
     }

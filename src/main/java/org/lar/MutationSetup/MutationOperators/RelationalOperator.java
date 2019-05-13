@@ -1,14 +1,12 @@
 package org.lar.MutationSetup.MutationOperators;
 
-import org.lar.FileUtils.FileBrowser;
+import org.antlr.v4.runtime.BufferedTokenStream;
+import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.TokenStreamRewriter;
 
 public class RelationalOperator implements Operator {
     @Override
-    public void createMutants(String file) {
-        String[] relationalOperators = {">", ">=", "<", "<=", "==", "!="};
+    public void createMutants(BufferedTokenStream tokenStream, TokenStreamRewriter rewriter, ParserRuleContext ctx) {
 
-        for(int i = 0; i < 4; i++) {
-            FileBrowser.appendToMutations("ROR", "");
-        }
     }
 }

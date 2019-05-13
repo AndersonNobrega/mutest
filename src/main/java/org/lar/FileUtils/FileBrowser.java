@@ -1,12 +1,15 @@
 package org.lar.FileUtils;
 
+import org.antlr.v4.runtime.misc.MultiMap;
 import org.apache.commons.io.FilenameUtils;
+import org.lar.MutationSetup.Language.LanguageWalker;
 import org.lar.MutationSetup.MutationOperators.Operator;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
+import java.util.Objects;
 
 public class FileBrowser {
     private static String actualFile = "";
@@ -28,7 +31,7 @@ public class FileBrowser {
      * @return O string do arquivo
      * @throws IOException Erro de leitura de arquivo
      */
-    private static String readFile(File file) throws IOException {
+    public static String readFile(File file) throws IOException {
         byte[] encoded = Files.readAllBytes(file.toPath());
         return new String(encoded, Charset.forName("UTF-8"));
     }
@@ -39,14 +42,14 @@ public class FileBrowser {
      * @param directory Diretorio que deseja pecorrer
      * @throws IOException Erro de leitura de arquivo
      */
-    public static void browseDirectory(File directory, Operator mutationOperator) throws IOException {
-        for (File child : directory.listFiles()) {
+    public static void browseDirectory(File directory, Operator mutationOperator, LanguageWalker walker) throws IOException {
+        for (File child : Objects.requireNonNull(directory.listFiles())) {
             if (child.isDirectory()) {
-                browseDirectory(child, mutationOperator);
+                browseDirectory(child, mutationOperator, walker);
             } else {
-                if (child.getName().endsWith(".sv")) {
+                if (walker.languageFormat().contains(FilenameUtils.getExtension(child.getName()))) {
                     FileBrowser.actualFile = FilenameUtils.getBaseName(child.getName());
-                    mutationOperator.createMutants(readFile(child));
+                    walker.walkFileTree(child, mutationOperator);
                 }
             }
         }

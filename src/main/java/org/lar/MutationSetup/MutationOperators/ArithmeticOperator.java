@@ -1,25 +1,36 @@
 package org.lar.MutationSetup.MutationOperators;
 
+import org.antlr.v4.runtime.*;
 import org.lar.FileUtils.FileBrowser;
+import org.lar.LanguageUtils.SystemVerilog.SystemVerilogLexer;
 import org.lar.MutationSetup.MutationUtils.StringReplacer;
 
 import java.util.ArrayList;
 
 public class ArithmeticOperator implements Operator {
 
-    private char[] arithmeticOperators = {'+', '-'};
+    private ArrayList<String> arithmeticOperators = new ArrayList<String>() {
+        {
+            add("+");
+            add("-");
+            add("/");
+            add("*");
+        }
+    };
     private StringReplacer stringReplacer = new StringReplacer();
 
     @Override
-    public void createMutants(String file) {
-        ArrayList<Integer> index = this.stringReplacer.findCharIndex(file, this.arithmeticOperators);
+    public void createMutants(BufferedTokenStream tokenStream, TokenStreamRewriter rewriter, ParserRuleContext ctx) {
+        ArrayList<Integer> index = this.stringReplacer.findCharIndex(tokenStream, ctx, this.arithmeticOperators);
         StringBuilder fileTemp;
+        TokenStreamRewriter temp;
 
-        for(int charIndex : index) {
-            for(char arithmeticOperator : arithmeticOperators) {
-                if(file.charAt(charIndex) != arithmeticOperator) {
-                    fileTemp = new StringBuilder(file);
-                    fileTemp.setCharAt(charIndex, arithmeticOperator);
+        for(int tokenIndex :  index) {
+            for(String arithmeticOperator : arithmeticOperators) {
+                temp = rewriter;
+                if(!tokenStream.get(tokenIndex).getText().equals(arithmeticOperator)) {
+                    temp.replace(tokenIndex, arithmeticOperator);
+                    fileTemp = new StringBuilder(temp.getText());
                     FileBrowser.appendToMutations("AOR", fileTemp.toString());
                 }
             }

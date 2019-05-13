@@ -42,8 +42,9 @@ public class Runner {
                 }
             }
 
+            System.out.println("Running...");
             init.start(operatorsOption.split(","), projectPath, savePath);
-            System.out.println("Done");
+            System.out.println("Done.");
         } catch (IndexOutOfBoundsException e) {
             System.out.println(MANUAL);
         }
