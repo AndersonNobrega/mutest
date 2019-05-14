@@ -27,7 +27,7 @@ public class ArithmeticOperator implements Operator {
 
         for(int tokenIndex :  index) {
             for(String arithmeticOperator : arithmeticOperators) {
-                temp = rewriter;
+                temp = new TokenStreamRewriter(tokenStream);
                 if(!tokenStream.get(tokenIndex).getText().equals(arithmeticOperator)) {
                     temp.replace(tokenIndex, arithmeticOperator);
                     fileTemp = new StringBuilder(temp.getText());
