@@ -6,23 +6,23 @@ import org.lar.MutationSetup.MutationUtils.TokenReplacer;
 
 import java.util.ArrayList;
 
-public class RelationalOperator implements Operator {
+public class ConditionalOperator implements Operator {
 
-    private ArrayList<String> relationalOperators = new ArrayList<String>() {
+    private ArrayList<String> conditionalOperators = new ArrayList<String>() {
         {
-            add(">");
-            add(">=");
-            add("<");
-            //add("<=");
-            add("==");
-            add("!=");
+            add("&&");
+            add("||");
+            add("&");
+            add("|");
+            add("^");
+            add("~");
+            add("!");
         }
     };
-
 
     @Override
     public void createMutants(BufferedTokenStream tokenStream, ParserRuleContext ctx) {
         TokenReplacer tokenReplacer = new TokenReplacer();
-        tokenReplacer.replaceTokens(tokenStream, ctx, this.relationalOperators, "ROR");
+        tokenReplacer.replaceTokens(tokenStream, ctx, this.conditionalOperators, "COR");
     }
 }

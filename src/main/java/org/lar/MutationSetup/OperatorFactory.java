@@ -1,7 +1,6 @@
 package org.lar.MutationSetup;
 
-import org.lar.MutationSetup.MutationOperators.ArithmeticOperator;
-import org.lar.MutationSetup.MutationOperators.Operator;
+import org.lar.MutationSetup.MutationOperators.*;
 
 abstract class OperatorFactory {
     static Operator getOperator(String operatorName) {
@@ -9,6 +8,18 @@ abstract class OperatorFactory {
         switch (operatorName) {
             case "AOR":
                 mutationOperator = new ArithmeticOperator();
+                break;
+            case "ROR":
+                mutationOperator = new RelationalOperator();
+                break;
+            case "COR":
+                mutationOperator = new ConditionalOperator();
+                break;
+            case "SOR":
+                mutationOperator = new ShiftOperator();
+                break;
+            case "ASR":
+                mutationOperator = new AssignmentOperator();
                 break;
         }
         return mutationOperator;

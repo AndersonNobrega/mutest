@@ -529,7 +529,7 @@ constraint_primary : ( implicit_class_handle '.' | class_scope )? hierarchical_i
 constraint_expression :
 ( 'soft' )? expression_or_dist ';'
 | uniqueness_constraint ';'
-| expression '-' '>' constraint_set
+| expression '->' constraint_set
 | 'if' '(' expression ')' constraint_set ( 'else' constraint_set )?
 | 'foreach' '(' ps_or_hierarchical_array_identifier '[' loop_variables ']' ')' constraint_set
 | 'disable' 'soft' constraint_primary ';'
@@ -1056,8 +1056,8 @@ overload_declaration :
 'bind' overload_operator 'function' data_type function_identifier '(' overload_proto_formals ')' ';'
 ;
 
-overload_operator : '+' '+'? | '-' '-'? | '*' '*'? | '/' | '%' | '=' '='? | '!' '='
-| '<' '='? | '>' '='?
+overload_operator : '+' '+'? | '-' '-'? | '*' '*'? | '/' | '%' | '=='? | '!='
+| '<='? | '>='?
 ;
 
 overload_proto_formals : data_type ( ',' data_type)*
@@ -1195,12 +1195,12 @@ sequence_expr
 | 'not' property_expr
 | property_expr 'or' property_expr
 | property_expr 'and' property_expr
-| sequence_expr '|' '-' '>' property_expr
-| sequence_expr '|' '=' '>' property_expr
+| sequence_expr '|->' property_expr
+| sequence_expr '|=>' property_expr
 | 'if' '(' expression_or_dist ')' property_expr ( 'else' property_expr )?
 | 'case' '(' expression_or_dist ')' property_case_item  ( property_case_item )*  'endcase'
-| sequence_expr '#' '-' '#' property_expr
-| sequence_expr '#' '=' '#' property_expr
+| sequence_expr '#-#' property_expr
+| sequence_expr '#=#' property_expr
 | 'nexttime' property_expr
 | 'nexttime' ( constant_expression )? property_expr
 | 's_nexttime' property_expr
@@ -1319,7 +1319,7 @@ consecutive_repetition :
 non_consecutive_repetition : '[' '=' const_or_range_expression ']'
 ;
 
-goto_repetition : '[' '-' '>' const_or_range_expression ']'
+goto_repetition : '[' '->' const_or_range_expression ']'
 ;
 
 const_or_range_expression :
@@ -1444,13 +1444,13 @@ bins_keyword: 'bins' | 'illegal_bins' | 'ignore_bins'
 trans_list : '(' trans_set ')'  ( ',' '(' trans_set ')' )*
 ;
 
-trans_set : trans_range_list  ( '=' '>' trans_range_list )*
+trans_set : trans_range_list  ( '=>' trans_range_list )*
 ;
 
 trans_range_list :
 trans_item
 | trans_item '[' '*' repeat_range ']'
-| trans_item '[' '-' '>' repeat_range ']'
+| trans_item '[' '->' repeat_range ']'
 | trans_item '[' '=' repeat_range ']'
 ;
 
@@ -1495,8 +1495,8 @@ bins_selection : bins_keyword bin_identifier '=' select_expression ( 'iff' '(' e
 select_expression :
 select_condition
 | '!' select_condition
-| select_expression '&' '&' select_expression
-| select_expression '|' '|' select_expression
+| select_expression '&&' select_expression
+| select_expression '||' select_expression
 | '(' select_expression ')'
 | select_expression 'with' '(' with_covergroup_expression ')' ( 'matches' integer_covergroup_expression )?
 | cross_identifier
@@ -1909,12 +1909,12 @@ operator_assignment : variable_lvalue assignment_operator expression
 ;
 
 assignment_operator :
-'=' | '+' '=' | '-' '=' | '*' '=' | '/' '=' | '%' '=' | '&' '=' | '|' '='
-| '^' '=' | '<' '<' '=' | '>' '>' '=' | '<' '<' '<' '=' | '>' '>' '>' '='
+'=' | '+=' | '-=' | '*=' | '/=' | '%=' | '&=' | '|='
+| '^=' | '<<=' | '>>=' | '<<<=' | '>>>='
 ;
 
 nonblocking_assignment :
-variable_lvalue '<' '=' ( delay_or_event_control )? expression
+variable_lvalue Non_blocking ( delay_or_event_control )? expression
 ;
 
 procedural_continuous_assignment :
@@ -2045,8 +2045,8 @@ wait_statement :
 ;
 
 event_trigger :
-'-' '>' hierarchical_event_identifier ';'
-| '-' '>' '>' ( delay_or_event_control )? hierarchical_event_identifier ';'
+'->' hierarchical_event_identifier ';'
+| '->>' ( delay_or_event_control )? hierarchical_event_identifier ';'
 ;
 
 disable_statement :
@@ -2100,7 +2100,7 @@ case_item_expression  ( ',' case_item_expression )*  ':' statement_or_null
 ;
 
 case_pattern_item :
-pattern ( '&' '&' '&' expression )? ':' statement_or_null
+pattern ( '&&&' expression )? ':' statement_or_null
 | 'default' ( ':' )? statement_or_null
 ;
 
@@ -2317,7 +2317,7 @@ edge_identifier ( delay_control )?
 ;
 
 clocking_drive :
-clockvar_expression '<' '=' ( cycle_delay )? expression
+clockvar_expression Non_blocking ( cycle_delay )? expression
 ;
 
 cycle_delay :
@@ -2420,11 +2420,11 @@ parallel_path_description '=' path_delay_value
 ;
 
 parallel_path_description :
-'(' specify_input_terminal_descriptor ( polarity_operator )? '=' '>' specify_output_terminal_descriptor ')'
+'(' specify_input_terminal_descriptor ( polarity_operator )? '=>' specify_output_terminal_descriptor ')'
 ;
 
 full_path_description :
-'(' list_of_path_inputs ( polarity_operator )? '*' '>' list_of_path_outputs ')'
+'(' list_of_path_inputs ( polarity_operator )? '*>' list_of_path_outputs ')'
 ;
 
 list_of_path_inputs :
@@ -2527,12 +2527,12 @@ parallel_edge_sensitive_path_description '=' path_delay_value
 ;
 
 parallel_edge_sensitive_path_description :
-'(' ( edge_identifier )? specify_input_terminal_descriptor ( polarity_operator )? '=' '>'
+'(' ( edge_identifier )? specify_input_terminal_descriptor ( polarity_operator )? '=>'
 '(' specify_output_terminal_descriptor ( polarity_operator )? ':' data_source_expression ')' ')'
 ;
 
 full_edge_sensitive_path_description :
-'(' ( edge_identifier )? list_of_path_inputs ( polarity_operator )? '*' '>'
+'(' ( edge_identifier )? list_of_path_inputs ( polarity_operator )? '*>'
 '(' list_of_path_outputs ( polarity_operator )? ':' data_source_expression ')' ')'
 ;
 
@@ -2673,11 +2673,11 @@ timing_check_limit : expression
 // A.7.5.3 System timing check event definitions
 
 timing_check_event :
-(timing_check_event_control)? specify_terminal_descriptor ( '&' '&' '&' timing_check_condition )?
+(timing_check_event_control)? specify_terminal_descriptor ( '&&&' timing_check_condition )?
 ;
 
 controlled_timing_check_event :
-timing_check_event_control specify_terminal_descriptor ( '&' '&' '&' timing_check_condition )?
+timing_check_event_control specify_terminal_descriptor ( '&&&' timing_check_condition )?
 ;
 
 timing_check_event_control :
@@ -2714,10 +2714,10 @@ scalar_timing_check_condition
 scalar_timing_check_condition :
 expression
 | '~' expression
-| expression '=' '=' scalar_constant
-| expression '=' '=' '=' scalar_constant
-| expression '!' '=' scalar_constant
-| expression '!' '=' '=' scalar_constant
+| expression '==' scalar_constant
+| expression '===' scalar_constant
+| expression '!=' scalar_constant
+| expression '!==' scalar_constant
 ;
 
 scalar_constant : Integral_number ;
@@ -2748,7 +2748,7 @@ multiple_concatenation : '{' expression concatenation '}'
 streaming_concatenation : '{' stream_operator ( slice_size )? stream_concatenation '}'
 ;
 
-stream_operator : '>' '>' | '<' '<'
+stream_operator : '>>' | '<<'
 ;
 
 slice_size : simple_type | constant_expression
@@ -3052,26 +3052,25 @@ nonrange_variable_lvalue :
 // A.8.6 Operators
 
 unary_operator :
-'+' | '-' | '!' | '~' | '&' | '~' '&' | '|' | '~' '|' | '^' | '~' '^' | '^' '~'
+'+' | '-' | '!' | '~' | '&' | '~&' | '|' | '~|' | '^' | '~^' | '^~'
 ;
 
 binary_operator :
-'+' | '-' | '*' | '/' | '%' | '=' '=' | '!' '=' | '=' '=' '=' | '!' '=' '='
-| '=' '=' '?' | '!' '=' '?' | '&' '&' | '|' '|' | '*' '*'
-| '<' | '<' '=' | '>' | '>' '=' | '&' | '|' | '^' | '^' '~' | '~' '^' | '>' '>'
-| '<' '<' | '>' '>' '>' | '<' '<' '<'
-| '-' '>' | '<' '-' '>'
+'+' | '-' | '*' | '/' | '%' | '==' | '!=' | '===' | '!=='
+| '==?' | '!=?' | '&&' | '||' | '**'
+| '<' | '<=' | '>' | '>=' | '&' | '|' | '^' | '^~' | '~^' | '>>'
+| '<<' | '>>>' | '<<<' | '->' | '<->'
 ;
 
 inc_or_dec_operator : '+' '+' | '-' '-'
 ;
 
 unary_module_path_operator :
-'!' | '~' | '&' | '~' '&' | '|' | '~' '|' | '^' | '~' '^' | '^' '~'
+'!' | '~' | '&' | '~&' | '|' | '~|' | '^' | '~^' | '^~'
 ;
 
 binary_module_path_operator :
-'=' '=' | '!' '=' | '&' '&' | '|' '|' | '&' | '|' | '^' | '^' '~' | '~' '^'
+'==' | '!=' | '&&' | '||' | '&' | '|' | '^' | '^~' | '~^'
 ;
 
 // A.8.7 Numbers
@@ -3161,6 +3160,9 @@ fragment X_digit : [xX]
 ;
 
 fragment Z_digit : [zZ?]
+;
+
+Non_blocking : '<='
 ;
 
 Unbased_unsized_literal : '\'' [01zZxX]
