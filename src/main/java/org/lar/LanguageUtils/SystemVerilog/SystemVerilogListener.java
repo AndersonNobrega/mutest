@@ -1,4 +1,3 @@
-// Generated from /home/anderson/ProgrammingProjects/mutest/src/main/java/org/lar/LanguageUtils/SystemVerilog/SystemVerilog.g4 by ANTLR 4.7
 package org.lar.LanguageUtils.SystemVerilog;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 

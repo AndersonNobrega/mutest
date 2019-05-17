@@ -16,7 +16,12 @@ public class SystemVerilogListener extends SystemVerilogBaseListener {
     }
 
     @Override
-    public void enterSource_text(SystemVerilogParser.Source_textContext ctx) {
+    public void enterBinary_operator(SystemVerilogParser.Binary_operatorContext ctx) {
+        mutationOperator.createMutants(tokenStream, ctx);
+    }
+
+    @Override
+    public void enterAssignment_operator(SystemVerilogParser.Assignment_operatorContext ctx) {
         mutationOperator.createMutants(tokenStream, ctx);
     }
 
