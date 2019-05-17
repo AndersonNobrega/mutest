@@ -13,7 +13,7 @@ public class RelationalOperator implements Operator {
             add(">");
             add(">=");
             add("<");
-            //add("<=");
+            add("<=");
             add("==");
             add("!=");
         }
