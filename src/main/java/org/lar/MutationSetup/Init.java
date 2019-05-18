@@ -30,16 +30,20 @@ public class Init {
         int cont;
         String newPath;
 
-        for(String key : mutantList.keySet()) {
-            cont = 0;
-            for(String mutant : mutantList.get(key)) {
-                cont++;
-                try {
-                    newPath = "/ProjectMutant/" + key + "/" + cont + "/";
-                    FileUtils.copyDirectory(new File(dirPath), new File(savePath  + newPath));
-                    FileCreator.saveFile(FileBrowser.getActualFile(), savePath  + newPath, mutant, "sv");
-                } catch (IOException e) {
-                    e.printStackTrace();
+        if(mutantList.isEmpty()) {
+            System.out.println("No mutants were created.");
+        } else {
+            for(String key : mutantList.keySet()) {
+                cont = 0;
+                for(String mutant : mutantList.get(key)) {
+                    cont++;
+                    try {
+                        newPath = "/ProjectMutant/" + key + "/" + cont + "/";
+                        FileUtils.copyDirectory(new File(dirPath), new File(savePath  + newPath));
+                        FileCreator.saveFile(FileBrowser.getActualFile(), savePath  + newPath, mutant, "sv");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

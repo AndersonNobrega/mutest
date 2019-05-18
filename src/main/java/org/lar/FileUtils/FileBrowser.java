@@ -47,7 +47,8 @@ public class FileBrowser {
             if (child.isDirectory()) {
                 browseDirectory(child, mutationOperator, walker);
             } else {
-                if (walker.languageFormat().contains(FilenameUtils.getExtension(child.getName()))) {
+                if (walker.languageFormat().contains(FilenameUtils.getExtension(child.getName())) &&
+                        !FilenameUtils.getBaseName(child.getName()).contains("_testbench")) {
                     FileBrowser.actualFile = FilenameUtils.getBaseName(child.getName());
                     walker.walkFileTree(child, mutationOperator);
                 }
