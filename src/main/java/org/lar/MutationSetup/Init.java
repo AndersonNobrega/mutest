@@ -1,6 +1,7 @@
 package org.lar.MutationSetup;
 
 import org.antlr.v4.runtime.misc.MultiMap;
+import org.antlr.v4.runtime.misc.Pair;
 import org.apache.commons.io.FileUtils;
 import org.lar.FileUtils.FileBrowser;
 import org.lar.FileUtils.FileCreator;
@@ -26,7 +27,7 @@ public class Init {
     }
 
     private void saveMutations(String dirPath, String savePath) {
-        MultiMap<String, String> mutantList = FileBrowser.getMutations();
+        MultiMap<String, MultiMap<String, String>> mutantList = FileBrowser.getMutations();
         int cont;
         String newPath;
 
@@ -35,14 +36,19 @@ public class Init {
         } else {
             for(String key : mutantList.keySet()) {
                 cont = 0;
-                for(String mutant : mutantList.get(key)) {
-                    cont++;
-                    try {
-                        newPath = "/ProjectMutant/" + key + "/" + cont + "/";
-                        FileUtils.copyDirectory(new File(dirPath), new File(savePath  + newPath));
-                        FileCreator.saveFile(FileBrowser.getActualFile(), savePath  + newPath, mutant, "sv");
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                for(MultiMap<String, String> fileMap : mutantList.get(key)) {
+                    for(Pair fileMutant : fileMap.getPairs()) {
+                        cont++;
+                        try {
+                            String file = (String) fileMutant.a;
+                            String mutant = (String) fileMutant.b;
+                            newPath = "/ProjectMutant/" + key + "/" + cont + "/";
+
+                            FileUtils.copyDirectory(new File(dirPath), new File(savePath  + newPath));
+                            FileCreator.saveFile(file, savePath  + newPath, mutant, "sv");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             }

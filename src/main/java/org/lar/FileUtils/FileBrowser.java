@@ -13,14 +13,14 @@ import java.util.Objects;
 
 public class FileBrowser {
     private static String actualFile = "";
-    private static MultiMap<String, String> mutations = new MultiMap<>();
+    private static MultiMap<String, MultiMap<String, String>> mutations = new MultiMap<>();
 
     /**
      * Retorna o nome do arquivo
      *
      * @return Nome do arquivo
      */
-    public static String getActualFile() {
+    private static String getActualFile() {
         return FileBrowser.actualFile;
     }
 
@@ -56,11 +56,16 @@ public class FileBrowser {
         }
     }
 
-    public static MultiMap<String, String> getMutations() {
+    public static MultiMap<String, MultiMap<String, String>> getMutations() {
         return FileBrowser.mutations;
     }
 
     public static void appendToMutations(String operator, String mutant) {
-        FileBrowser.mutations.map(operator, mutant);
+        MultiMap<String, String> fileMutants = new MultiMap<String, String>() {
+            {
+                map(FileBrowser.getActualFile(), mutant);
+            }
+        };
+        FileBrowser.mutations.map(operator, fileMutants);
     }
 }
