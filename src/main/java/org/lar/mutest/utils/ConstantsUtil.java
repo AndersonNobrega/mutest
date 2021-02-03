@@ -20,4 +20,8 @@ public class ConstantsUtil {
     public static final String NO_MUTANTS_CREATED = "No mutants were created";
 
     public static final String DIR_NOT_CREATED = "Directory not created";
+
+    public static final String FILE_NOT_OPENED = "Não foi possivel abrir arquivo";
+
+    public static final String FILE_READ_PROBLEM = "Problemas com leitura do arquivo";
 }

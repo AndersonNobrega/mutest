@@ -72,9 +72,9 @@ public class FileCreator {
             writer.close();
             fileWriter.close();
         } catch (FileNotFoundException e) {
-            System.out.println("Não foi possivel abrir arquivo");
+            LOGGER.warning(ConstantsUtil.FILE_NOT_OPENED);
         } catch (IOException e) {
-            System.out.println("Problemas com leitura do arquivo");
+            LOGGER.warning(ConstantsUtil.FILE_READ_PROBLEM);
         }
     }
 }
