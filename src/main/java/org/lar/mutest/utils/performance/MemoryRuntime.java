@@ -26,7 +26,7 @@ public class MemoryRuntime {
     /**
      * Salva informações de memória utilizada e tempo de execução para arquivo txt
      */
-    public void saveInfo(long start) {
+    public void saveInfo(long start, String savePath) {
         MemoryRuntime memoryRuntime = new MemoryRuntime();
         long elapsedTimeMillis;
         long elapsedTimeSec;
@@ -36,6 +36,7 @@ public class MemoryRuntime {
         elapsedTimeSec = elapsedTimeMillis / 1000;
 
         FileCreator.appendToMemoryRuntimeFile("Tempo em Milisegundos: " + elapsedTimeMillis + "\nTempo em Segundos: " + elapsedTimeSec);
+        FileCreator.saveFile("Performance_Data", savePath, FileCreator.getMemoryRuntimeFile().toString(), "txt");
     }
 
     /**

@@ -22,6 +22,9 @@ interface OperatorFactory {
             case "ASR":
                 mutationOperator = new AssignmentOperator();
                 break;
+            case "UOR":
+                mutationOperator = new UnaryOperator();
+                break;
             default:
                 break;
         }

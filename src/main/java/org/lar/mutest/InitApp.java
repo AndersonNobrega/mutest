@@ -35,7 +35,7 @@ public class InitApp {
 
         if (AppOptions.isMemoryRuntimeEnabled()) {
             MemoryRuntime memoryRuntime = new MemoryRuntime();
-            memoryRuntime.saveInfo(start);
+            memoryRuntime.saveInfo(start, savePath);
         }
     }
 

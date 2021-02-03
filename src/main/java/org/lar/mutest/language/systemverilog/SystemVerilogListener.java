@@ -26,4 +26,9 @@ public class SystemVerilogListener extends SystemVerilogBaseListener {
         mutationOperator.createMutants(tokenStream, ctx);
     }
 
+    @Override
+    public void enterUnary_assign_operator(SystemVerilogParser.Unary_assign_operatorContext ctx) {
+        mutationOperator.createMutants(tokenStream, ctx);
+    }
+
 }
