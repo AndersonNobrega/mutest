@@ -1,6 +1,6 @@
-package org.lar.mutationsetup;
+package org.lar.mutest;
 
-import org.lar.mutationsetup.utils.ConstantsUtil;
+import org.lar.mutest.utils.ConstantsUtil;
 
 public class AppOptions {
 

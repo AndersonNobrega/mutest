@@ -1,6 +1,6 @@
-package org.lar.mutationsetup;
+package org.lar.mutest;
 
-import org.lar.mutationsetup.operators.*;
+import org.lar.mutest.operators.*;
 
 interface OperatorFactory {
 

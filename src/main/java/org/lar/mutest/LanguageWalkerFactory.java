@@ -1,7 +1,7 @@
-package org.lar.mutationsetup;
+package org.lar.mutest;
 
-import org.lar.mutationsetup.language.LanguageWalker;
-import org.lar.mutationsetup.language.systemverilog.SystemVerilogWalker;
+import org.lar.mutest.language.LanguageWalker;
+import org.lar.mutest.language.systemverilog.SystemVerilogWalker;
 
 interface LanguageWalkerFactory {
 

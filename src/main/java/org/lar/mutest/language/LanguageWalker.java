@@ -1,6 +1,6 @@
-package org.lar.mutationsetup.language;
+package org.lar.mutest.language;
 
-import org.lar.mutationsetup.operators.Operator;
+import org.lar.mutest.operators.Operator;
 
 import java.io.File;
 import java.io.IOException;

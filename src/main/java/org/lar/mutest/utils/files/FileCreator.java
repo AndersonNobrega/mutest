@@ -1,6 +1,6 @@
-package org.lar.mutationsetup.utils.files;
+package org.lar.mutest.utils.files;
 
-import org.lar.mutationsetup.utils.ConstantsUtil;
+import org.lar.mutest.utils.ConstantsUtil;
 
 import java.io.BufferedWriter;
 import java.io.File;

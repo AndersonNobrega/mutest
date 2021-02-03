@@ -1,14 +1,14 @@
-package org.lar.mutationsetup;
+package org.lar.mutest;
 
 import org.antlr.v4.runtime.misc.MultiMap;
 import org.antlr.v4.runtime.misc.Pair;
 import org.apache.commons.io.FileUtils;
-import org.lar.mutationsetup.utils.ConstantsUtil;
-import org.lar.mutationsetup.utils.files.FileBrowser;
-import org.lar.mutationsetup.utils.files.FileCreator;
-import org.lar.mutationsetup.language.LanguageWalker;
-import org.lar.mutationsetup.operators.Operator;
-import org.lar.mutationsetup.utils.performance.MemoryRuntime;
+import org.lar.mutest.utils.ConstantsUtil;
+import org.lar.mutest.utils.files.FileBrowser;
+import org.lar.mutest.utils.files.FileCreator;
+import org.lar.mutest.language.LanguageWalker;
+import org.lar.mutest.operators.Operator;
+import org.lar.mutest.utils.performance.MemoryRuntime;
 
 import java.io.File;
 import java.io.IOException;

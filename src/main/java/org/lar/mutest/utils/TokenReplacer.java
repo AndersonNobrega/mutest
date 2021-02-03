@@ -1,10 +1,10 @@
-package org.lar.mutationsetup.utils;
+package org.lar.mutest.utils;
 
 import org.antlr.v4.runtime.BufferedTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.TokenStreamRewriter;
-import org.lar.mutationsetup.utils.files.FileBrowser;
+import org.lar.mutest.utils.files.FileBrowser;
 
 import java.util.ArrayList;
 import java.util.List;

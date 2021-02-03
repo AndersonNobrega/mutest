@@ -1,6 +1,6 @@
-package org.lar.mutationsetup.utils.performance;
+package org.lar.mutest.utils.performance;
 
-import org.lar.mutationsetup.utils.files.FileCreator;
+import org.lar.mutest.utils.files.FileCreator;
 
 public class MemoryRuntime {
 

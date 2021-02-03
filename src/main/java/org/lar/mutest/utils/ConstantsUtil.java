@@ -1,4 +1,4 @@
-package org.lar.mutationsetup.utils;
+package org.lar.mutest.utils;
 
 public class ConstantsUtil {
 

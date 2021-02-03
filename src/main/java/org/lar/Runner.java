@@ -1,8 +1,8 @@
 package org.lar;
 
-import org.lar.mutationsetup.AppOptions;
-import org.lar.mutationsetup.InitApp;
-import org.lar.mutationsetup.utils.ConstantsUtil;
+import org.lar.mutest.AppOptions;
+import org.lar.mutest.InitApp;
+import org.lar.mutest.utils.ConstantsUtil;
 
 import java.util.logging.Logger;
 

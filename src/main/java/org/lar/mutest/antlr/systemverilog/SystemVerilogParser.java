@@ -1,5 +1,5 @@
 // Generated from /home/anderson/ProgrammingProjects/College/mutest/src/main/resources/grammar/SystemVerilog.g4 by ANTLR 4.9.1
-package org.lar.languageutils.systemverilog;
+package org.lar.mutest.antlr.systemverilog;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;

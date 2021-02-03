@@ -1,9 +1,9 @@
-package org.lar.mutationsetup.language.systemverilog;
+package org.lar.mutest.language.systemverilog;
 
 import org.antlr.v4.runtime.BufferedTokenStream;
-import org.lar.languageutils.systemverilog.SystemVerilogBaseListener;
-import org.lar.languageutils.systemverilog.SystemVerilogParser;
-import org.lar.mutationsetup.operators.Operator;
+import org.lar.mutest.antlr.systemverilog.SystemVerilogBaseListener;
+import org.lar.mutest.antlr.systemverilog.SystemVerilogParser;
+import org.lar.mutest.operators.Operator;
 
 public class SystemVerilogListener extends SystemVerilogBaseListener {
 

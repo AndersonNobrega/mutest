@@ -1,8 +1,8 @@
-package org.lar.mutationsetup.operators;
+package org.lar.mutest.operators;
 
 import org.antlr.v4.runtime.BufferedTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
-import org.lar.mutationsetup.utils.TokenReplacer;
+import org.lar.mutest.utils.TokenReplacer;
 
 import java.util.Arrays;
 import java.util.List;
