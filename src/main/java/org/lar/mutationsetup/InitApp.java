@@ -8,6 +8,7 @@ import org.lar.mutationsetup.utils.files.FileBrowser;
 import org.lar.mutationsetup.utils.files.FileCreator;
 import org.lar.mutationsetup.language.LanguageWalker;
 import org.lar.mutationsetup.operators.Operator;
+import org.lar.mutationsetup.utils.performance.MemoryRuntime;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +19,8 @@ public class InitApp {
     private static final Logger LOGGER = Logger.getLogger( InitApp.class.getName() );
 
     public void start(String[] operators, String dirPath, String savePath) {
+        long start = System.currentTimeMillis();
+
         for (String operator : operators) {
             Operator mutationOperator = OperatorFactory.getOperator(operator);
             LanguageWalker walker = LanguageWalkerFactory.getWalker("SV");
@@ -29,6 +32,11 @@ public class InitApp {
         }
 
         saveMutations(dirPath, savePath);
+
+        if (AppOptions.isMemoryRuntimeEnabled()) {
+            MemoryRuntime memoryRuntime = new MemoryRuntime();
+            memoryRuntime.saveInfo(start);
+        }
     }
 
     private void saveMutations(String dirPath, String savePath) {

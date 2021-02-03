@@ -1,5 +1,6 @@
 package org.lar;
 
+import org.lar.mutationsetup.AppOptions;
 import org.lar.mutationsetup.InitApp;
 import org.lar.mutationsetup.utils.ConstantsUtil;
 
@@ -36,6 +37,9 @@ public class Runner {
                         break;
                     case "-f":
                         savePath = args[++i];
+                        break;
+                    case "-stat":
+                        AppOptions.setMemoryRuntimeEnabled(true);
                         break;
                     case "-help":
                     default:

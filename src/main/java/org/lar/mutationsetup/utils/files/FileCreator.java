@@ -13,8 +13,28 @@ public class FileCreator {
 
     private static final Logger LOGGER = Logger.getLogger( FileCreator.class.getName() );
 
+    private static final StringBuilder memoryRuntimeFile = new StringBuilder();
+
     private FileCreator() {
         throw new IllegalStateException(ConstantsUtil.CLASS_NOT_INSTANTIABLE);
+    }
+
+    /**
+     * Retorna as metricas do projeto
+     *
+     * @return String das metricas do projeto
+     */
+    public static StringBuilder getMemoryRuntimeFile() {
+        return FileCreator.memoryRuntimeFile;
+    }
+
+    /**
+     * Adiciona as metricas do projeto ao arquivo txt
+     *
+     * @param content Conteudo para adicionar
+     */
+    public static void appendToMemoryRuntimeFile(String content) {
+        FileCreator.memoryRuntimeFile.append(content);
     }
 
     /**

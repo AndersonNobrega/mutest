@@ -12,6 +12,7 @@ public class ConstantsUtil {
             + "\n\t-opr: operator(s) that will be used"
             + "\n\t-d: the project path must be inserted after this option"
             + "\n\t-f: path to save the resulting file(s)"
+            + "\n\t-stat: show memory used"
             + "\n\n\tEXAMPLE: -opr AOR -d ~/SomeProject/ -f ~/Downloads";
 
     public static final String PATH_NOT_FOUND = "Path not found";
