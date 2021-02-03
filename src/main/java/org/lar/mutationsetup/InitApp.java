@@ -50,11 +50,11 @@ public class InitApp {
             for (String key : mutantList.keySet()) {
                 cont = 0;
                 for (MultiMap<String, String> fileMap : mutantList.get(key)) {
-                    for (Pair fileMutant : fileMap.getPairs()) {
+                    for (Pair<String, String> fileMutant : fileMap.getPairs()) {
                         cont++;
                         try {
-                            String file = (String) fileMutant.a;
-                            String mutant = (String) fileMutant.b;
+                            String file = fileMutant.a;
+                            String mutant = fileMutant.b;
                             newPath = "/ProjectMutant/" + key + "/" + cont + "/";
 
                             FileUtils.copyDirectory(new File(dirPath), new File(savePath  + newPath));
