@@ -1,25 +1,29 @@
 package org.lar;
 
-import org.lar.MutationSetup.Init;
+import org.lar.mutest.AppOptions;
+import org.lar.mutest.InitApp;
+import org.lar.mutest.utils.ConstantsUtil;
+
+import java.util.logging.Logger;
 
 public class Runner {
+
+    private static final Logger LOGGER = Logger.getLogger( Runner.class.getName() );
+
     /**
      * Classe principal do projeto
      *
      * @param args Deve ter a lista de argumentos para o extrator
      */
     public static void main(String[] args) {
-        Init init = new Init();
-        final String MANUAL = "You must set the following options:"
-                + "\n\t-opr: operator(s) that will be used"
-                + "\n\t-d: the project path must be inserted after this option"
-                + "\n\t-f: path to save the resulting file(s)"
-                + "\n\n\tEXAMPLE: -opr AOR -d ~/SomeProject/ -f ~/Downloads";
-        String operatorsOption = "", projectPath = "", savePath = "";
+        InitApp initApp = new InitApp();
+        String operatorsOption = "";
+        String projectPath = "";
+        String savePath = "";
 
         try {
             if (args.length == 0) {
-                System.out.println(MANUAL);
+                LOGGER.info(ConstantsUtil.MANUAL);
                 System.exit(0);
             }
 
@@ -34,19 +38,22 @@ public class Runner {
                     case "-f":
                         savePath = args[++i];
                         break;
+                    case "-stat":
+                        AppOptions.setMemoryRuntimeEnabled(true);
+                        break;
                     case "-help":
                     default:
-                        System.out.println(MANUAL);
+                        LOGGER.info(ConstantsUtil.MANUAL);
                         System.exit(0);
                         break;
                 }
             }
 
-            System.out.println("Running...");
-            init.start(operatorsOption.split(","), projectPath, savePath);
-            System.out.println("Done.");
+            LOGGER.info("Running...");
+            initApp.start(operatorsOption.split(","), projectPath, savePath);
+            LOGGER.info("Done.");
         } catch (IndexOutOfBoundsException e) {
-            System.out.println(MANUAL);
+            LOGGER.info(ConstantsUtil.MANUAL);
         }
     }
 }
